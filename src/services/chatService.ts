@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { startingContext } from './startingContext.ts';
 
 interface ChatMessage {
   id: string;
@@ -25,23 +26,17 @@ class ChatService {
       
       // First, check if the message is about a specific part number
       const partNumberMatch = message.match(/PS\d{8}/);
-      if (partNumberMatch) {
-        console.log('Part number match found:', partNumberMatch[0]);
-        const partNumber = partNumberMatch[0];
-        const productInfo = await this.getProductInfo(partNumber);
-        return this.formatProductResponse(productInfo);
-      }
 
       // Check if the message is about compatibility
-      if (message.toLowerCase().includes('compatible')) {
-        console.log('Compatibility check requested');
-        const modelMatch = message.match(/[A-Z0-9]{10,}/);
-        if (modelMatch) {
-          console.log('Model number match found:', modelMatch[0]);
-          const modelNumber = modelMatch[0];
-          return await this.checkCompatibility(modelNumber);
-        }
-      }
+      // if (message.toLowerCase().includes('compatible')) {
+      //   console.log('Compatibility check requested');
+      //   const modelMatch = message.match(/[A-Z0-9]{10,}/);
+      //   if (modelMatch) {
+      //     console.log('Model number match found:', modelMatch[0]);
+      //     const modelNumber = modelMatch[0];
+      //     return await this.checkCompatibility(modelNumber);
+      //   }
+      // }
 
       // For general queries, use the Deepseek model
       console.log('Sending request to backend API');
@@ -49,8 +44,7 @@ class ChatService {
         `${this.API_URL}/api/chat`,
         {
           message,
-          context: 'You are a helpful assistant for PartSelect.com, specializing in refrigerator and dishwasher parts. '
-            + 'Provide accurate, concise information about parts, installation, and troubleshooting.'
+          context: startingContext
         },
         {
           headers: {
@@ -86,18 +80,6 @@ class ChatService {
     }
   }
 
-  private async getProductInfo(partNumber: string): Promise<ProductInfo> {
-    // TODO: Implement actual API call to PartSelect's product database
-    // This is a mock implementation
-    return {
-      partNumber,
-      name: 'Sample Part',
-      description: 'This is a sample part description',
-      compatibility: ['Model1', 'Model2'],
-      installationGuide: 'Step 1: Turn off power\nStep 2: Remove old part\nStep 3: Install new part'
-    };
-  }
-
   private formatProductResponse(productInfo: ProductInfo): string {
     return `
 Part Information:
@@ -113,10 +95,10 @@ ${productInfo.installationGuide ? `Installation Guide:\n${productInfo.installati
     `.trim();
   }
 
-  private async checkCompatibility(modelNumber: string): Promise<string> {
-    // TODO: Implement actual compatibility check
-    return `I'll check the compatibility for model ${modelNumber}. Please provide the part number you're interested in.`;
-  }
+  // private async checkCompatibility(modelNumber: string): Promise<string> {
+  //   // TODO: Implement actual compatibility check
+  //   return `I'll check the compatibility for model ${modelNumber}. Please provide the part number you're interested in.`;
+  // }
 }
 
 export const chatService = new ChatService(); 

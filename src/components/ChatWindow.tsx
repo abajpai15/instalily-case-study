@@ -52,6 +52,13 @@ function ChatWindow() {
   };
 
   return (
+    <div className="chat-container">
+      <header className="chat-header">
+        <div className="header-content">
+          <h1>PartSelect Assistant</h1>
+          <p>Your expert for refrigerator and dishwasher parts</p>
+        </div>
+      </header>
       <div className="messages-container">
           {messages.map((message, index) => (
               <div key={index} className={`${message.role}-message-container`}>
@@ -70,28 +77,29 @@ function ChatWindow() {
             </div>
           )}
           <div ref={messagesEndRef} />
-          <div className="input-area">
-            <input
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Type a message..."
-              onKeyPress={(e) => {
-                if (e.key === "Enter" && !e.shiftKey) {
-                  handleSend(input);
-                  e.preventDefault();
-                }
-              }}
-              disabled={isLoading}
-            />
-            <button 
-              className="send-button" 
-              onClick={() => handleSend(input)}
-              disabled={isLoading}
-            >
-              {isLoading ? "Sending..." : "Send"}
-            </button>
-          </div>
       </div>
+      <div className="input-area">
+        <input
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Type a message..."
+          onKeyPress={(e) => {
+            if (e.key === "Enter" && !e.shiftKey) {
+              handleSend(input);
+              e.preventDefault();
+            }
+          }}
+          disabled={isLoading}
+        />
+        <button 
+          className="send-button" 
+          onClick={() => handleSend(input)}
+          disabled={isLoading}
+        >
+          {isLoading ? "Sending..." : "Send"}
+        </button>
+      </div>
+    </div>
   );
 }
 
