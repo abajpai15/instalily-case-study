@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export class DeepseekClient {
   private readonly apiKey: string;
-  private readonly apiUrl = 'https://openrouter.ai/api/v1/chat/completions';
+  private readonly apiUrl: string = process.env.DEEPSEEK_API_URL || 'https://api.deepseek.com/v1/chat/completions';
 
   constructor(apiKey: string) {
     this.apiKey = apiKey;
@@ -23,7 +23,7 @@ export class DeepseekClient {
               content: message
             }
           ],
-          model: 'deepseek/deepseek-chat-v3-0324:free',
+          model: process.env.DEEPSEEK_MODEL,
           temperature: 0.7,
           max_tokens: 500
         },

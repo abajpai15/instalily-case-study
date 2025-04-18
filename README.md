@@ -1,17 +1,23 @@
 # Instalily Case Study
 
-To run this project you must start the backend and frontend separately.
-Open a terminal in the ```instalily-case-study``` directory and split it. In one of these terminals run:
-```bash
-cd backend
-```
-Run the following in both terminals:
+# Setup
+
+Open a terminal in the ```instalily-case-study``` directory and run:
 ```bash
 npm install
 ```
+Then run:
+```bash
+cd backend
+npm install
+```
+Lastly, replace the ```placeholders``` in ```backend/.env```.
 
-Run:
+# Running the Agent
+
+From the ```backend``` folder run:
 ```bash
 npm start
 ```
-in both terminals to start the agent.
+then open a new terminal from ```instalily-case-study``` and run ```npm start```.
+This start the backend, then the frontend.
