@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./App.css";
-import ChatWindow from "./components/ChatWindow";
+import ChatWindow from "./components/ChatWindow.tsx";
 
 function App() {
 
