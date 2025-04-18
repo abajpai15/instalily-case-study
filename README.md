@@ -10,7 +10,8 @@ Run the following in both terminals:
 npm install
 ```
 
-To open the project in your browser, just start the backend, then the frontend using:
+Run:
 ```bash
 npm start
 ```
+in both terminals to start the agent.
